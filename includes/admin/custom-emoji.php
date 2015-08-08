@@ -96,22 +96,22 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 	 */
 	private function get_labels() {
 		return array(
-				'name'                  => _x( 'Custom Emoji', 'post type general name', 'eomji-reactions' ),
-				'singular_name'         => _x( 'Custom Emoji', 'post type singular name', 'emoji-reactions' ),
-				'menu_name'             => _x( 'Custom Emoji', 'admin menu', 'emoji-reactions' ),
-				'name_admin_bar'        => _x( 'Custom Emoji', 'add new on admin bar', 'emoji-reactions' ),
-				'add_new'               => _x( 'Create', 'book', 'emoji-reactions' ),
-				'add_new_item'          => __( 'Create New Custom Emoji', 'emoji-reactions' ),
-				'new_item'              => __( 'Create Custom Emoji', 'emoji-reactions' ),
-				'edit_item'             => __( 'Edit Custom Emoji', 'emoji-reactions' ),
-				'view_item'             => __( 'View Custom Emoji', 'emoji-reactions' ),
-				'all_items'             => __( 'All Custom Emoji', 'emoji-reactions' ),
-				'search_items'          => __( 'Search custom emoji', 'emoji-reactions' ),
-				'not_found'             => __( 'No custom emoji found.', 'emoji-reactions' ),
-				'not_found_in_trash'    => __( 'No custom emoji found in trash.', 'emoji-reactions' ),
-				'set_featured_image'    => __( 'Set emoji image', 'emoji-reactions' ),
-				'remove_featured_image' => __( 'Remove', 'emoji-reactions' ),
-				'use_featured_image'    => __( 'Set emoji image', 'emoji-reactions' ),
+				'name'                  => esc_html( _x( 'Custom Emoji', 'post type general name', 'eomji-reactions' ) ),
+				'singular_name'         => esc_html( _x( 'Custom Emoji', 'post type singular name', 'emoji-reactions' ) ),
+				'menu_name'             => esc_html( _x( 'Custom Emoji', 'admin menu', 'emoji-reactions' ) ),
+				'name_admin_bar'        => esc_html( _x( 'Custom Emoji', 'add new on admin bar', 'emoji-reactions' ) ),
+				'add_new'               => esc_html( _x( 'Create', 'book', 'emoji-reactions' ) ),
+				'add_new_item'          => esc_html__( 'Create New Custom Emoji', 'emoji-reactions' ),
+				'new_item'              => esc_html__( 'Create Custom Emoji', 'emoji-reactions' ),
+				'edit_item'             => esc_html__( 'Edit Custom Emoji', 'emoji-reactions' ),
+				'view_item'             => esc_html__( 'View Custom Emoji', 'emoji-reactions' ),
+				'all_items'             => esc_html__( 'All Custom Emoji', 'emoji-reactions' ),
+				'search_items'          => esc_html__( 'Search custom emoji', 'emoji-reactions' ),
+				'not_found'             => esc_html__( 'No custom emoji found.', 'emoji-reactions' ),
+				'not_found_in_trash'    => esc_html__( 'No custom emoji found in trash.', 'emoji-reactions' ),
+				'set_featured_image'    => esc_html__( 'Set emoji image', 'emoji-reactions' ),
+				'remove_featured_image' => esc_html__( 'Remove', 'emoji-reactions' ),
+				'use_featured_image'    => esc_html__( 'Set emoji image', 'emoji-reactions' ),
 		);
 	}
 
@@ -125,21 +125,21 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 
 		$messages['custom-emoji'] = array(
 			0  => '', // Unused. Messages start at index 1.
-			1  => __( 'Custom emoji updated.', 'emoji-reactions' ),
-			2  => __( 'Custom emoji updated.', 'emoji-reactions' ),
-			3  => __( 'Custom emoji deleted.', 'emoji-reactions' ),
-			4  => __( 'Custom emoji updated.', 'emoji-reactions' ),
+			1  => esc_html__( 'Custom emoji updated.', 'emoji-reactions' ),
+			2  => esc_html__( 'Custom emoji updated.', 'emoji-reactions' ),
+			3  => esc_html__( 'Custom emoji deleted.', 'emoji-reactions' ),
+			4  => esc_html__( 'Custom emoji updated.', 'emoji-reactions' ),
 			/* translators: %s: date and time of the revision */
 			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Custom emoji restored to revision from %s', 'emoji-reactions' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6  => __( 'Custom emoji published.', 'emoji-reactions' ),
-			7  => __( 'Custom emoji saved.', 'emoji-reactions' ),
-			8  => __( 'Custom emoji submitted.', 'emoji-reactions' ),
+			6  => esc_html__( 'Custom emoji published.', 'emoji-reactions' ),
+			7  => esc_html__( 'Custom emoji saved.', 'emoji-reactions' ),
+			8  => esc_html__( 'Custom emoji submitted.', 'emoji-reactions' ),
 			9  => sprintf(
 				__( 'Custom emoji scheduled for: <strong>%1$s</strong>.', 'custom-emojis' ),
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i', 'custom-emojis' ), strtotime( $post->post_date ) )
 			),
-			10 => __( 'Custom emoji draft updated.', 'emoji-reactions' )
+			10 => esc_html__( 'Custom emoji draft updated.', 'emoji-reactions' )
 		);
 
 		return $messages;
@@ -150,9 +150,9 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 	 */
 	public function bulk_post_updated_messages( $bulk_messages, $bulk_counts ) {
 		$bulk_messages['custom-emoji'] = array(
-			'deleted'   => _n( '%s custom emoji permanently deleted.', '%s custom emoji permanently deleted.', $bulk_counts['deleted'], 'emoji-reactions' ),
-			'trashed'   => _n( '%s custom emoji moved to the trash.', '%s custom emoji moved to the trash.', $bulk_counts['trashed'], 'emoji-reactions' ),
-			'untrashed' => _n( '%s custom emoji restored from the trash.', '%s custom emoji restored from the trash.', $bulk_counts['untrashed'], 'emoji-reactions' ),
+			'deleted'   => esc_html( _n( '%s custom emoji permanently deleted.', '%s custom emoji permanently deleted.', $bulk_counts['deleted'], 'emoji-reactions' ) ),
+			'trashed'   => esc_html( _n( '%s custom emoji moved to the trash.', '%s custom emoji moved to the trash.', $bulk_counts['trashed'], 'emoji-reactions' ) ),
+			'untrashed' => esc_html( _n( '%s custom emoji restored from the trash.', '%s custom emoji restored from the trash.', $bulk_counts['untrashed'], 'emoji-reactions' ) ),
 		);
 		return $bulk_messages;
 	}
@@ -200,7 +200,7 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 			return $content;
 		}
 		$content .= "\n<p class='description' id='custom-emoji-image-description'>";
-		$content .= esc_html__( "Square images work best.", 'custom-emoji' );
+		$content .= esc_html__( "Square images work best.", 'emoji-reactions' );
 		$content .= "</p>";
 		return $content;
 	}
@@ -283,8 +283,8 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 	public function columns( $existing_columns ) {
 		$columns          = array();
 		$columns['cb']    = '<input type="checkbox" />';
-		$columns['image'] = __( 'Image', 'emoji-reactions' );
-		$columns['name']  = __( 'Name', 'emoji-reactions' );
+		$columns['image'] = esc_html__( 'Image', 'emoji-reactions' );
+		$columns['name']  = esc_html__( 'Name', 'emoji-reactions' );
 		return $columns;
 	}
 
