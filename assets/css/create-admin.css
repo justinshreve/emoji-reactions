@@ -1,0 +1,5 @@
+.post-type-custom-emoji #misc-publishing-actions,
+.post-type-custom-emoji #minor-publishing-actions,
+.post-type-custom-emoji #post-query-submit {
+	display: none;
+}
