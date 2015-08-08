@@ -11,4 +11,10 @@
  * Domain Path: languages/
  */
 
-require_once( 'includes/admin/custom-emoji.php' );
+// Register the custom eomji custom post type
+require_once( 'includes/register-custom-emoji-cpt.php' );
+
+// Only load the admin files if we are in wp-admin
+if ( is_admin() ) {
+	require_once( 'includes/admin/custom-emoji.php' );
+}
