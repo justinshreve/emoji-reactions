@@ -7,10 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-/**
- * @todo esc_html__
- * @todo rename all assets for this script to custom-emoji-admin.css/js
- */
 class Emoji_Reactions_Custom_Emoji_Admin {
 
 	/**
@@ -208,7 +204,7 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 			return;
 		}
 
-		wp_enqueue_style( 'emoji-reactions-create-admin-css', plugins_url( 'assets/css/create-admin.css' , dirname ( dirname( __FILE__ ) ) ) );
+		wp_enqueue_style( 'emoji-reactions-custom-emoji-admin-css', plugins_url( 'assets/css/custom-emoji-admin.css' , dirname ( dirname( __FILE__ ) ) ) );
 	}
 
 	/**
@@ -219,8 +215,8 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 			return;
 		}
 
-		wp_enqueue_script( 'emoji-reactions-create-admin-js', plugins_url( 'assets/js/create-admin.js' , dirname ( dirname ( __FILE__ ) ) ) );
-		wp_localize_script( 'emoji-reactions-create-admin-js', 'emojiReactionsStrings', array(
+		wp_enqueue_script( 'emoji-reactions-custom-emoji-admin-js', plugins_url( 'assets/js/custom-emoji-admin.js' , dirname ( dirname ( __FILE__ ) ) ) );
+		wp_localize_script( 'emoji-reactions-custom-emoji-admin-js', 'emojiReactionsStrings', array(
 			'saveNewEmoji'    => esc_html__( 'Save New Emoji', 'emoji-reactions' ),
 			'save'            => esc_html__( 'Save', 'emoji-reactions' ),
 		) );
