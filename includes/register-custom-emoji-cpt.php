@@ -9,6 +9,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Emoji_Reactions_Register_Custom_Emoji_CPT {
 
+	private static $instance;
+
+	/**
+	 * Only return one instance of the register class
+	 */
+	public static function instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new Emoji_Reactions_Register_Custom_Emoji_CPT();
+		}
+		return self::$instance;
+	}
+
 	/**
 	 * We want to register everything on WordPress' init
 	 */
@@ -68,4 +80,4 @@ class Emoji_Reactions_Register_Custom_Emoji_CPT {
 
 }
 
-new Emoji_Reactions_Register_Custom_Emoji_CPT;
+Emoji_Reactions_Register_Custom_Emoji_CPT::instance();

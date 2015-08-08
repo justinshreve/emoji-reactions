@@ -9,6 +9,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Emoji_Reactions_Custom_Emoji_Admin {
 
+	private static $instance;
+
+	/**
+	 * Only return one instance of the custom emoji admin class
+	 */
+	public static function instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new Emoji_Reactions_Custom_Emoji_Admin();
+		}
+		return self::$instance;
+	}
+
 	/**
 	 * Hook into WordPress.. alot
 	 */
@@ -251,4 +263,4 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 
 }
 
-new Emoji_Reactions_Custom_Emoji_Admin;
+Emoji_Reactions_Custom_Emoji_Admin::instance();
