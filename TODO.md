@@ -1,4 +1,3 @@
-* Hook above the comment area or below the post to create a reactions area
 * Create the control to list emoji from the emoji map
 * Continue working on that control and pull from our CPT
 * Add a 'onclick' handler to the control, which fires off an ajax request to log the reaction
@@ -8,6 +7,7 @@
 * List all reactions in the reactions area
 * Show # of reactions in wp-admin
 * Add new section to wp-admin see all reactions for a post, and who made them
+* @since version tags
 * Generate .pot file
 * Minify CSS & JS - Grunt?
 * CONTRIBUTING File
