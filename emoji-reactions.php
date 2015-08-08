@@ -19,4 +19,5 @@ if ( is_admin() ) {
 	require_once( 'includes/admin/custom-emoji.php' );
 } else {
 	require_once( 'includes/reaction-area.php' );
+	require_once( 'includes/list-control.php' );
 }
