@@ -105,7 +105,7 @@ class Emoji_Reactions_Reaction_Area {
 	 */
 	public function load_assets() {
 		wp_enqueue_style( 'emoji-reactions-reaction-area-css', plugins_url( 'assets/css/reaction-area.css' , dirname( __FILE__ ) ) );
-		wp_enqueue_script( 'emoji-reactions-reaction-area-js', plugins_url( 'assets/js/reaction-area.js' , dirname( __FILE__ ) ) );
+		wp_enqueue_script( 'emoji-reactions-reaction-area-js', plugins_url( 'assets/js/reaction-area.js' , dirname( __FILE__ ) ), array( 'jquery' ) );
 	}
 
 }

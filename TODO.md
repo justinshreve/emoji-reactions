@@ -1,3 +1,4 @@
+* Figure out how to categorize the 'core' emoji - https://github.com/iamcal/emoji-data instead?
 * Create the control to list emoji from the emoji map
 * Replace + with an actual nice button/widget
 * Continue working on that control and pull from our CPT

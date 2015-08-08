@@ -25,11 +25,8 @@ class Emoji_Reactions_List_Control {
 	 * Hook into WordPress
 	 */
 	public function __construct() {
-		add_filter(
-			'emoji_reactions_reaction_area',
-			array( $this, 'add_button' ),
-			apply_filters( 'emoji_reactions_reaction_area_add_button_priority', 20 )
-		);
+		add_filter( 'emoji_reactions_reaction_area', array( $this, 'add_button' ), 20 );
+		add_action( 'wp_footer', array( $this, 'popup_window' ), 30 );
 	}
 
 	/**
@@ -39,7 +36,17 @@ class Emoji_Reactions_List_Control {
 		$button = '<div class="emoji-reactions-reaction-area-add-button">';
 		$button .= '+';
 		$button .= '</div>';
-		return $content . apply_filters( 'emoji_reactions_add_button', $button );
+		return $content . apply_filters( 'emoji_reactions_reaction_area_add_button', $button );
+	}
+
+	/**
+	 * The popup window wrapper where we list all of our emoji
+	 * We only want this div once, so we append it to the filter and move it around later
+	 */
+	public function popup_window() {
+		$window = '<div id="emoji-reactions-popup-window">';
+		$window .= '</div>';
+		echo $window;
 	}
 
 }
