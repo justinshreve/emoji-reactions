@@ -31,6 +31,9 @@ class Emoji_Reactions_Register_CPT {
 		add_filter( 'post_row_actions', array( $this, 'remove_action_links' ), 10, 2 );
 		add_filter( 'bulk_actions-edit-custom-emoji', array( $this, 'bulk_actions' ) );
 		add_filter( 'months_dropdown_results', array( $this, 'hide_date_dropdown') , 10, 2 );
+
+		add_filter( 'manage_custom-emoji_posts_columns', array( $this, 'columns' ) );
+		add_action( 'manage_custom-emoji_posts_custom_column', array( $this, 'render_columns' ), 2 );
 	}
 
 	private function is_custom_emoji_screen() {
@@ -232,6 +235,32 @@ class Emoji_Reactions_Register_CPT {
 			'saveNewEmoji'  => esc_html__( 'Save New Emoji', 'emoji-reactions' ),
 			'save'            => esc_html__( 'Save', 'emoji-reactions' ),
 		) );
+	}
+
+	public function columns( $existing_columns ) {
+		$columns          = array();
+		$columns['cb']    = '<input type="checkbox" />';
+		$columns['thumb'] = __( 'Image', 'emoji-reactions' );
+		$columns['name']  = __( 'Name', 'emoji-reactions' );
+		return $columns;
+	}
+
+	public function render_columns( $column ) {
+		global $post;
+
+		switch ( $column ) {
+			case 'thumb' :
+				echo '<a href="' . get_edit_post_link( $post->ID ) . '">' . the_post_thumbnail( array( 44, 44 ) ) . '</a>';
+				break;
+			case 'name' :
+				$edit_link = get_edit_post_link( $post->ID );
+				$title     = _draft_or_post_title();
+
+				echo '<strong><a class="row-title" href="' . esc_url( $edit_link ) .'">' . $title .'</a>';
+				echo '</strong>';
+			default :
+				break;
+		}
 	}
 }
 
