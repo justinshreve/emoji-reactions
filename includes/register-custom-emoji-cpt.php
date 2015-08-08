@@ -47,22 +47,22 @@ class Emoji_Reactions_Register_Custom_Emoji_CPT {
 	 */
 	private function get_labels() {
 		return array(
-				'name'                  => esc_html( _x( 'Custom Emoji', 'post type general name', 'eomji-reactions' ) ),
-				'singular_name'         => esc_html( _x( 'Custom Emoji', 'post type singular name', 'emoji-reactions' ) ),
-				'menu_name'             => esc_html( _x( 'Custom Emoji', 'admin menu', 'emoji-reactions' ) ),
-				'name_admin_bar'        => esc_html( _x( 'Custom Emoji', 'add new on admin bar', 'emoji-reactions' ) ),
-				'add_new'               => esc_html( _x( 'Create', 'book', 'emoji-reactions' ) ),
-				'add_new_item'          => esc_html__( 'Create New Custom Emoji', 'emoji-reactions' ),
-				'new_item'              => esc_html__( 'Create Custom Emoji', 'emoji-reactions' ),
-				'edit_item'             => esc_html__( 'Edit Custom Emoji', 'emoji-reactions' ),
-				'view_item'             => esc_html__( 'View Custom Emoji', 'emoji-reactions' ),
-				'all_items'             => esc_html__( 'All Custom Emoji', 'emoji-reactions' ),
-				'search_items'          => esc_html__( 'Search custom emoji', 'emoji-reactions' ),
-				'not_found'             => esc_html__( 'No custom emoji found.', 'emoji-reactions' ),
-				'not_found_in_trash'    => esc_html__( 'No custom emoji found in trash.', 'emoji-reactions' ),
-				'set_featured_image'    => esc_html__( 'Set emoji image', 'emoji-reactions' ),
-				'remove_featured_image' => esc_html__( 'Remove', 'emoji-reactions' ),
-				'use_featured_image'    => esc_html__( 'Set emoji image', 'emoji-reactions' ),
+			'name'                  => esc_html( _x( 'Custom Emoji', 'post type general name', 'eomji-reactions' ) ),
+			'singular_name'         => esc_html( _x( 'Custom Emoji', 'post type singular name', 'emoji-reactions' ) ),
+			'menu_name'             => esc_html( _x( 'Custom Emoji', 'admin menu', 'emoji-reactions' ) ),
+			'name_admin_bar'        => esc_html( _x( 'Custom Emoji', 'add new on admin bar', 'emoji-reactions' ) ),
+			'add_new'               => esc_html( _x( 'Create', 'book', 'emoji-reactions' ) ),
+			'add_new_item'          => esc_html__( 'Create New Custom Emoji', 'emoji-reactions' ),
+			'new_item'              => esc_html__( 'Create Custom Emoji', 'emoji-reactions' ),
+			'edit_item'             => esc_html__( 'Edit Custom Emoji', 'emoji-reactions' ),
+			'view_item'             => esc_html__( 'View Custom Emoji', 'emoji-reactions' ),
+			'all_items'             => esc_html__( 'All Custom Emoji', 'emoji-reactions' ),
+			'search_items'          => esc_html__( 'Search custom emoji', 'emoji-reactions' ),
+			'not_found'             => esc_html__( 'No custom emoji found.', 'emoji-reactions' ),
+			'not_found_in_trash'    => esc_html__( 'No custom emoji found in trash.', 'emoji-reactions' ),
+			'set_featured_image'    => esc_html__( 'Set emoji image', 'emoji-reactions' ),
+			'remove_featured_image' => esc_html__( 'Remove', 'emoji-reactions' ),
+			'use_featured_image'    => esc_html__( 'Set emoji image', 'emoji-reactions' ),
 		);
 	}
 
