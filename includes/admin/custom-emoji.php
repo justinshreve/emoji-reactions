@@ -293,17 +293,12 @@ class Emoji_Reactions_Custom_Emoji_Admin {
 	 */
 	public function render_columns( $column ) {
 		global $post;
-
 		switch ( $column ) {
 			case 'image' :
-				echo '<a href="' . get_edit_post_link( $post->ID ) . '">' . the_post_thumbnail( array( 44, 44 ) ) . '</a>';
+				echo '<a href="' . esc_url( get_edit_post_link( $post->ID ) ) . '">' . the_post_thumbnail( array( 44, 44 ) ) . '</a>';
 				break;
 			case 'name' :
-				$edit_link = get_edit_post_link( $post->ID );
-				$title     = _draft_or_post_title();
-
-				echo '<strong><a class="row-title" href="' . esc_url( $edit_link ) .'">' . $title .'</a>';
-				echo '</strong>';
+				echo '<strong><a class="row-title" href="' . esc_url( get_edit_post_link( $post->ID ) ) .'">' . esc_html( _draft_or_post_title() ) .'</a></strong>';
 			default :
 				break;
 		}
