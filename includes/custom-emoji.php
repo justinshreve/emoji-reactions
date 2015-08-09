@@ -38,6 +38,7 @@ class Emoji_Reactions_Custom_Emoji {
 			$custom_emoji[ $custom_emoji_wp_single->post_title ] = wp_get_attachment_url( get_post_thumbnail_id( $custom_emoji_wp_single->ID ) );
 		}
 
+		$custom_emoji = apply_filters( 'emoji_reactions_custom_emoji', $custom_emoji );
 		return $custom_emoji;
 	}
 
