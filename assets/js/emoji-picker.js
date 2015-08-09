@@ -1,69 +1,71 @@
 jQuery( document ).ready( function( $ ) {
 
-	var emojiRaw = $.getJSON( emojiPickerData.pluginURL + '/emoji.json' ),
-		emoji = {},
-		emojiCategories = {},
-		loadEmoji = $.Deferred();
+emojiPicker = {
 
-	loadEmoji.promise();
-	emojiRaw.done( processEmoji );
+	emoji: {},
+	emojiCategories: {},
 
-	$( document ).click( function() {
-		$( '#emoji-reactions-popup-window' ).hide();
-	} );
+	init: function() {
+		emojiPicker.windowOpener();
+	},
 
-	$( '#emoji-reactions-popup-window' ).on( 'click', function( event ) {
-		event.stopPropagation();
-	} );
+	windowOpener: function() {
+		$( document ).click( function() {
+			$( '#emoji-reactions-popup-window' ).hide();
+		} );
 
-	$( '.emoji-reactions-add-button' ).on( 'click', function( event ) {
-		var $popup = $( '#emoji-reactions-popup-window' ),
-			$menuHeader = $( '#emoji-menu-header' );
+		$( '#emoji-reactions-popup-window' ).on( 'click', function( event ) {
+			event.stopPropagation();
+		} );
 
-		event.stopPropagation();
+		$( '.emoji-reactions-add-button' ).on( 'click', function( event ) {
+			var $popup = $( '#emoji-reactions-popup-window' ),
+				$menuHeader = $( '#emoji-menu-header' );
 
-		$popup.hide();
-		$popup.css( 'top', ( $(this).position().top - 400 ) + 'px' );
-		$popup.css( 'left', ( $(this).position().left - 15 ) + 'px' );
-		$popup.show();
+			event.stopPropagation();
 
-		loadEmoji.done( function() {
-			$menuHeader.html( '' );
-			$.each( emojiCategories, function( key, data ) {
-				$menuHeader.append( '<a class="emoji-group-tab emoji-group-tab-' + key + '" data-key="' + key + '" data-label="' + data.label + '" title="' + data.label + '">' + data.html + '</a>' );
-			} );
+			$popup.hide();
+			$popup.css( 'top', ( $(this).position().top - 400 ) + 'px' );
+			$popup.css( 'left', ( $(this).position().left - 15 ) + 'px' );
+			$popup.show();
 
-			// default to people tab
-			showEmojiTab( 'people' );
+			loadEmoji.done( function() {
+				$menuHeader.html( '' );
+				$.each( emojiPicker.emojiCategories, function( key, data ) {
+					$menuHeader.append( '<a class="emoji-group-tab emoji-group-tab-' + key + '" data-key="' + key + '" data-label="' + data.label + '" title="' + data.label + '">' + data.html + '</a>' );
+				} );
 
-			$( '.emoji-group-tab, .emoji-group-tab-peopl' ).on( 'click', function() {
-				showEmojiTab( $( this ).data( 'key' ) );
+				// default to people tab
+				emojiPicker.showEmojiTab( 'people' );
+
+				$( '.emoji-group-tab, .emoji-group-tab-peopl' ).on( 'click', function() {
+					emojiPicker.showEmojiTab( $( this ).data( 'key' ) );
+				} );
 			} );
 		} );
-	} );
+	},
 
-
-	function showEmojiTab( key ) {
+	showEmojiTab: function( key ) {
 		var $label = $( '#emoji-label' ),
 			$list = $( '#emoji-list' );
 
 		if ( 'custom' === key ) {
-			showCustomEmojiTab();
+			emojiPicker.showCustomEmojiTab();
 			return;
 		}
 
 		$label.text( $( '.emoji-group-tab-' + key ).data( 'label' ) );
 		$list.html( '' );
 
-		$.each( emoji[ key ], function( id, emojiData ) {
+		$.each( emojiPicker.emoji[ key ], function( id, emojiData ) {
 			if ( '' === emojiData.name ) {
 				return;
 			}
-			$list.append( '<a class="emoji-select" data-name="' + emojiData.short_name + '">' + twemoji.parse( toUnicode( emojiData.unified ) ) + '</a>' );
+			$list.append( '<a class="emoji-select" data-name="' + emojiData.short_name + '">' + twemoji.parse( emojiPicker.toUnicode( emojiData.unified ) ) + '</a>' );
 		} );
-	}
+	},
 
-	function showCustomEmojiTab() {
+	showCustomEmojiTab: function() {
 		var $label = $( '#emoji-label' ),
 			$list = $( '#emoji-list' );
 
@@ -73,31 +75,13 @@ jQuery( document ).ready( function( $ ) {
 		$.each( emojiPickerData.custom, function( short_name, image_url ) {
 			$list.append( '<a class="emoji-select" data-name="custom_' + short_name + '"><img src="' + image_url + '" title="' + short_name + '" class="emoji" /></a>' );
 		} );
-	}
+	},
 
-function toUnicode(code) {
-    var codes = code.split('-').map(function(value, index) {
-      return parseInt(value, 16);
-    });
-    return String.fromCodePoint.apply(null, codes);
-  }
-
-
-	function processEmoji( emojiRaw ) {
+	processEmoji: function( raw ) {
 		var byCategoryUnsorted = byCategory = {};
 
-		function compareSortOrder( a,b ) {
-			if ( a.sort_order < b.sort_order ) {
-				return -1;
-			}
-			if (a.sort_order > b.sort_order) {
-				return 1;
-			}
-			return 0;
-		}
-
 		// Separate by category
-		$.each( emojiRaw, function( key, data ) {
+		$.each( raw, function( key, data ) {
 			if ( null !== data.category ) {
 				if ( 'undefined' === typeof byCategoryUnsorted[ data.category.toLowerCase() ] ) {
 					byCategoryUnsorted[ data.category.toLowerCase() ] = [];
@@ -108,59 +92,86 @@ function toUnicode(code) {
 		} );
 
 		$.each( byCategoryUnsorted, function ( category, entriesUnsorted ) {
-			var entries = entriesUnsorted.sort( compareSortOrder );
+			var entries = entriesUnsorted.sort( emojiPicker.compareSortOrder );
 			byCategory[ category ] = entries;
 		} );
 
 		// Return in a specific order for how we will display them..
-		emoji['people'] = byCategory['people'];
-		emojiCategories['people'] = {
+		emojiPicker.emoji['people'] = byCategory['people'];
+		emojiPicker.emojiCategories['people'] = {
 			'label': emojiPickerStrings[ 'people' ],
 			'html': twemoji.parse( '&#x1F601;' )
 		};
 
-		emoji['nature'] = byCategory['nature'];
-		emojiCategories['nature'] = {
+		emojiPicker.emoji['nature'] = byCategory['nature'];
+		emojiPicker.emojiCategories['nature'] = {
 			'label': emojiPickerStrings[ 'nature' ],
 			'html': twemoji.parse( '&#x1F332;' )
 		};
 
-		emoji['foods']  = byCategory['foods'];
-		emojiCategories['foods'] = {
+		emojiPicker.emoji['foods']  = byCategory['foods'];
+		emojiPicker.emojiCategories['foods'] = {
 			'label': emojiPickerStrings[ 'foods' ],
 			'html': twemoji.parse( '&#x1F354;' )
 		};
 
-		emoji['celebration'] = byCategory['celebration'];
-		emojiCategories['celebration'] = {
+		emojiPicker.emoji['celebration'] = byCategory['celebration'];
+		emojiPicker.emojiCategories['celebration'] = {
 			'label': emojiPickerStrings[ 'celebration' ],
 			'html': twemoji.parse( '&#x1F389;' )
 		};
 
-		emoji['activity'] = byCategory['activity'];
-		emojiCategories['activity'] = {
+		emojiPicker.emoji['activity'] = byCategory['activity'];
+		emojiPicker.emojiCategories['activity'] = {
 			'label': emojiPickerStrings[ 'activity' ],
 			'html': twemoji.parse( '&#x1F3C8;' )
 		};
 
-		emoji['places'] = byCategory['places'];
-		emojiCategories['places'] = {
+		emojiPicker.emoji['places'] = byCategory['places'];
+		emojiPicker.emojiCategories['places'] = {
 			'label': emojiPickerStrings[ 'places' ],
 			'html': twemoji.parse( '&#x2708;' )
 		};
 
-		emoji['symbols'] = byCategory['symbols'];
-		emojiCategories['symbols'] = {
+		emojiPicker.emoji['symbols'] = byCategory['symbols'];
+		emojiPicker.emojiCategories['symbols'] = {
 			'label': emojiPickerStrings[ 'symbols' ],
 			'html': twemoji.parse( '&#x1F4A1;' )
 		};
 
-		emojiCategories['custom'] = {
+		emojiPicker.emojiCategories['custom'] = {
 			'label': emojiPickerStrings[ 'custom' ],
 			'html': twemoji.parse( '&#x270F;' )
 		};
 
 		loadEmoji.resolve();
+	},
+
+	// Utility functions
+
+	toUnicode: function( code ) {
+		var codes = code.split( '-' ).map( function( value, index ) {
+			return parseInt(value, 16);
+		} );
+		return String.fromCodePoint.apply( null, codes );
+	},
+
+	compareSortOrder: function( a,b ) {
+		if ( a.sort_order < b.sort_order ) {
+			return -1;
+		}
+		if ( a.sort_order > b.sort_order ) {
+			return 1;
+		}
+		return 0;
 	}
+
+};
+
+emojiRaw = $.getJSON( emojiPickerData.pluginURL + '/emoji.json' );
+loadEmoji = $.Deferred();
+loadEmoji.promise();
+emojiRaw.done( emojiPicker.processEmoji );
+emojiPicker.init();
 
 } );

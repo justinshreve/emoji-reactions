@@ -1,7 +1,6 @@
 
 ## v1:
 
-* Refactor emoji-picker.js / current front end JS
 * Replace + with an actual nice button/widget
 * Add a 'onclick' handler to the control, which fires off an ajax request to log the reaction
 * Store reaction as a custom comment type
