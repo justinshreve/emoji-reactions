@@ -29,7 +29,7 @@ class Emoji_Reactions_Reaction_Area {
 	 */
 	public function __construct() {
 		$this->filter_vars();
-		$this->load_assets();
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_assets' ) );
 		add_action( 'init',  array( $this, 'add_filters' ) );
 	}
 
@@ -101,47 +101,10 @@ class Emoji_Reactions_Reaction_Area {
 	}
 
 	/**
-	 * Loads all of our custom emoji so we can pass it to Javascript
-	 */
-	public function get_custom_emoji() {
-		$args = array(
-			'posts_per_page' => -1,
-			'post_type'      => 'custom-emoji',
-			'post_status'    => 'publish',
-		);
-		$custom_emoji_wp = get_posts( $args );
-
-		$custom_emoji = array();
-		foreach ( $custom_emoji_wp as $custom_emoji_wp_single ) {
-			$custom_emoji[ $custom_emoji_wp_single->post_title ] = wp_get_attachment_url( get_post_thumbnail_id( $custom_emoji_wp_single->ID ) );
-		}
-
-		return $custom_emoji;
-	}
-
-	/**
 	 * Loads any front end assets that we need
 	 */
 	public function load_assets() {
 		wp_enqueue_style( 'emoji-reactions-reaction-area-css', plugins_url( 'assets/css/reaction-area.css' , dirname( __FILE__ ) ) );
-		wp_enqueue_script( 'emoji-reactions-reaction-area-js', plugins_url( 'assets/js/reaction-area.js' , dirname( __FILE__ ) ), array( 'jquery' ) );
-
-		$custom_emoji = $this->get_custom_emoji();
-
-		wp_localize_script( 'emoji-reactions-reaction-area-js', 'emojiReactionsData', array(
-			'pluginURL' => plugins_url( '' , dirname( __FILE__ ) ),
-			'custom'    => $custom_emoji,
-		) );
-		wp_localize_script( 'emoji-reactions-reaction-area-js', 'emojiReactionsStrings', array(
-			'people' => esc_html__( 'People', 'emoji-reactions' ),
-			'nature' => esc_html__( 'Nature', 'emoji-reactions' ),
-			'foods' =>  esc_html__( 'Food & Drink', 'emoji-reactions' ),
-			'celebration' => esc_html__( 'Celebration', 'emoji-reactions' ),
-			'activity' => esc_html__( 'Activity', 'emoji-reactions' ),
-			'places' => esc_html__( 'Travel & Places', 'emoji-reactions' ),
-			'symbols' => esc_html__( 'Objects & Symbols', 'emoji-reactions' ),
-			'custom' => esc_html__( 'Custom', 'emoji-reactions' ),
-		) );
 	}
 
 }

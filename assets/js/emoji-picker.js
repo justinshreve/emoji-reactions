@@ -1,6 +1,6 @@
 jQuery( document ).ready( function( $ ) {
 
-	var emojiRaw = $.getJSON( emojiReactionsData.pluginURL + '/emoji.json' ),
+	var emojiRaw = $.getJSON( emojiPickerData.pluginURL + '/emoji.json' ),
 		emoji = {},
 		emojiCategories = {},
 		loadEmoji = $.Deferred();
@@ -67,14 +67,12 @@ jQuery( document ).ready( function( $ ) {
 		var $label = $( '#emoji-label' ),
 			$list = $( '#emoji-list' );
 
-		$label.text( emojiReactionsStrings[ 'custom' ] );
+		$label.text( emojiPickerStrings[ 'custom' ] );
 		$list.html( '' );
 
-		$.each( emojiReactionsData.custom, function( short_name, image_url ) {
+		$.each( emojiPickerData.custom, function( short_name, image_url ) {
 			$list.append( '<a class="emoji-select" data-name="custom_' + short_name + '"><img src="' + image_url + '" title="' + short_name + '" class="emoji" /></a>' );
 		} );
-
-		console.log( emojiReactionsData.custom );
 	}
 
 function toUnicode(code) {
@@ -117,48 +115,48 @@ function toUnicode(code) {
 		// Return in a specific order for how we will display them..
 		emoji['people'] = byCategory['people'];
 		emojiCategories['people'] = {
-			'label': emojiReactionsStrings[ 'people' ],
+			'label': emojiPickerStrings[ 'people' ],
 			'html': twemoji.parse( '&#x1F601;' )
 		};
 
 		emoji['nature'] = byCategory['nature'];
 		emojiCategories['nature'] = {
-			'label': emojiReactionsStrings[ 'nature' ],
+			'label': emojiPickerStrings[ 'nature' ],
 			'html': twemoji.parse( '&#x1F332;' )
 		};
 
 		emoji['foods']  = byCategory['foods'];
 		emojiCategories['foods'] = {
-			'label': emojiReactionsStrings[ 'foods' ],
+			'label': emojiPickerStrings[ 'foods' ],
 			'html': twemoji.parse( '&#x1F354;' )
 		};
 
 		emoji['celebration'] = byCategory['celebration'];
 		emojiCategories['celebration'] = {
-			'label': emojiReactionsStrings[ 'celebration' ],
+			'label': emojiPickerStrings[ 'celebration' ],
 			'html': twemoji.parse( '&#x1F389;' )
 		};
 
 		emoji['activity'] = byCategory['activity'];
 		emojiCategories['activity'] = {
-			'label': emojiReactionsStrings[ 'activity' ],
+			'label': emojiPickerStrings[ 'activity' ],
 			'html': twemoji.parse( '&#x1F3C8;' )
 		};
 
 		emoji['places'] = byCategory['places'];
 		emojiCategories['places'] = {
-			'label': emojiReactionsStrings[ 'places' ],
+			'label': emojiPickerStrings[ 'places' ],
 			'html': twemoji.parse( '&#x2708;' )
 		};
 
 		emoji['symbols'] = byCategory['symbols'];
 		emojiCategories['symbols'] = {
-			'label': emojiReactionsStrings[ 'symbols' ],
+			'label': emojiPickerStrings[ 'symbols' ],
 			'html': twemoji.parse( '&#x1F4A1;' )
 		};
 
 		emojiCategories['custom'] = {
-			'label': emojiReactionsStrings[ 'custom' ],
+			'label': emojiPickerStrings[ 'custom' ],
 			'html': twemoji.parse( '&#x270F;' )
 		};
 
