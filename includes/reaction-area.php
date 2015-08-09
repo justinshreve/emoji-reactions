@@ -101,11 +101,35 @@ class Emoji_Reactions_Reaction_Area {
 	}
 
 	/**
+	 * Loads all of our custom emoji so we can pass it to Javascript
+	 */
+	public function get_custom_emoji() {
+
+	}
+
+	/**
 	 * Loads any front end assets that we need
 	 */
 	public function load_assets() {
 		wp_enqueue_style( 'emoji-reactions-reaction-area-css', plugins_url( 'assets/css/reaction-area.css' , dirname( __FILE__ ) ) );
 		wp_enqueue_script( 'emoji-reactions-reaction-area-js', plugins_url( 'assets/js/reaction-area.js' , dirname( __FILE__ ) ), array( 'jquery' ) );
+
+		$custom_emoji = $this->get_custom_emoji();
+
+		wp_localize_script( 'emoji-reactions-reaction-area-js', 'emojiReactionsData', array(
+			'pluginURL' => plugins_url( '' , dirname( __FILE__ ) ),
+			'custom'    => $custom_emoji,
+		) );
+		wp_localize_script( 'emoji-reactions-reaction-area-js', 'emojiReactionsStrings', array(
+			'people' => esc_html__( 'People', 'emoji-reactions' ),
+			'nature' => esc_html__( 'Nature', 'emoji-reactions' ),
+			'foods' =>  esc_html__( 'Food & Drink', 'emoji-reactions' ),
+			'celebration' => esc_html__( 'Celebration', 'emoji-reactions' ),
+			'activity' => esc_html__( 'Activity', 'emoji-reactions' ),
+			'places' => esc_html__( 'Travel & Places', 'emoji-reactions' ),
+			'symbols' => esc_html__( 'Objects & Symbols', 'emoji-reactions' ),
+			'custom' => esc_html__( 'Custom', 'emoji-reactions' ),
+		) );
 	}
 
 }

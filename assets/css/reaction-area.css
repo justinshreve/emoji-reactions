@@ -17,3 +17,44 @@
 	height: 400px;
 	position: absolute;
 }
+
+#emoji-reactions-popup-window #emoji-menu-header {
+	padding: 4px 0 0 8px;
+	background: #E6E6E6;
+}
+
+#emoji-reactions-popup-window .emoji-group-tab {
+	display: inline-block;
+	padding-right: 15px;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+#emoji-reactions-popup-window .emoji-group-tab .emoji {
+	width: 18px !important;
+	height: 18px !important;
+}
+
+#emoji-reactions-popup-window .emoji-select {
+	cursor: pointer;
+	display: inline-block;
+	margin: 5px;
+}
+
+
+#emoji-label {
+	padding: 15px;
+	font-weight: bold;
+}
+
+#emoji-list {
+	padding: 0 15px 5px 15px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	height: 300px;
+}
+
+#emoji-list .emoji {
+	width: 18px !important;
+	height: 18px !important;
+}

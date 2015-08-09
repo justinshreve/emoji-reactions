@@ -45,6 +45,9 @@ class Emoji_Reactions_List_Control {
 	 */
 	public function popup_window() {
 		$window = '<div id="emoji-reactions-popup-window">';
+		$window .= '<div id="emoji-menu-header"></div>';
+		$window .= '<div id="emoji-label"></div>';
+		$window .= '<div id="emoji-list"></div>';
 		$window .= '</div>';
 		echo $window;
 	}
