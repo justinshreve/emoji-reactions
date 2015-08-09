@@ -104,7 +104,19 @@ class Emoji_Reactions_Reaction_Area {
 	 * Loads all of our custom emoji so we can pass it to Javascript
 	 */
 	public function get_custom_emoji() {
+		$args = array(
+			'posts_per_page' => -1,
+			'post_type'      => 'custom-emoji',
+			'post_status'    => 'publish',
+		);
+		$custom_emoji_wp = get_posts( $args );
 
+		$custom_emoji = array();
+		foreach ( $custom_emoji_wp as $custom_emoji_wp_single ) {
+			$custom_emoji[ $custom_emoji_wp_single->post_title ] = wp_get_attachment_url( get_post_thumbnail_id( $custom_emoji_wp_single->ID ) );
+		}
+
+		return $custom_emoji;
 	}
 
 	/**

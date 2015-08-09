@@ -47,6 +47,11 @@ jQuery( document ).ready( function( $ ) {
 		var $label = $( '#emoji-label' ),
 			$list = $( '#emoji-list' );
 
+		if ( 'custom' === key ) {
+			showCustomEmojiTab();
+			return;
+		}
+
 		$label.text( $( '.emoji-group-tab-' + key ).data( 'label' ) );
 		$list.html( '' );
 
@@ -56,7 +61,21 @@ jQuery( document ).ready( function( $ ) {
 			}
 			$list.append( '<a class="emoji-select" data-name="' + emojiData.short_name + '">' + twemoji.parse( toUnicode( emojiData.unified ) ) + '</a>' );
 		} );
-}
+	}
+
+	function showCustomEmojiTab() {
+		var $label = $( '#emoji-label' ),
+			$list = $( '#emoji-list' );
+
+		$label.text( emojiReactionsStrings[ 'custom' ] );
+		$list.html( '' );
+
+		$.each( emojiReactionsData.custom, function( short_name, image_url ) {
+			$list.append( '<a class="emoji-select" data-name="custom_' + short_name + '"><img src="' + image_url + '" title="' + short_name + '" class="emoji" /></a>' );
+		} );
+
+		console.log( emojiReactionsData.custom );
+	}
 
 function toUnicode(code) {
     var codes = code.split('-').map(function(value, index) {
