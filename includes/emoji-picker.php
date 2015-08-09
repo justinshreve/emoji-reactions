@@ -34,7 +34,7 @@ class Emoji_Reactions_Emoji_Picker {
 	 * Displays the button
 	 */
 	public function add_button( $content ) {
-		$button = '<div class="emoji-reactions-reaction-area-add-button">';
+		$button = '<div class="emoji-reactions-add-button">';
 		$button .= '+';
 		$button .= '</div>';
 		return $content . apply_filters( 'emoji_reactions_reaction_area_add_button', $button );

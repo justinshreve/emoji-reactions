@@ -16,7 +16,7 @@ jQuery( document ).ready( function( $ ) {
 		event.stopPropagation();
 	} );
 
-	$( '.emoji-reactions-reaction-area-add-button' ).on( 'click', function( event ) {
+	$( '.emoji-reactions-add-button' ).on( 'click', function( event ) {
 		var $popup = $( '#emoji-reactions-popup-window' ),
 			$menuHeader = $( '#emoji-menu-header' );
 

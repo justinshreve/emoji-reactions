@@ -29,7 +29,6 @@ class Emoji_Reactions_Reaction_Area {
 	 */
 	public function __construct() {
 		$this->filter_vars();
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_assets' ) );
 		add_action( 'init',  array( $this, 'add_filters' ) );
 	}
 
@@ -98,13 +97,6 @@ class Emoji_Reactions_Reaction_Area {
 	public function get_css_classes() {
 		$classes = array( 'emoji-reactions-reaction-area' );
 		return implode( ' ', apply_filters( 'emoji_reactions_reaction_area_css_classes', $classes ) );
-	}
-
-	/**
-	 * Loads any front end assets that we need
-	 */
-	public function load_assets() {
-		wp_enqueue_style( 'emoji-reactions-reaction-area-css', plugins_url( 'assets/css/reaction-area.css' , dirname( __FILE__ ) ) );
 	}
 
 }
