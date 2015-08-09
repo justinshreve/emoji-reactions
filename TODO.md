@@ -15,7 +15,3 @@
 * Minify CSS & JS - Grunt?
 * CONTRIBUTING File
 * Finish README
-
-## Future:
-
-* Add emoji search to the emoji picker
