@@ -38,7 +38,7 @@ emojiPicker = {
 				// default to people tab
 				emojiPicker.showEmojiTab( 'people' );
 
-				$( '.emoji-group-tab, .emoji-group-tab-peopl' ).on( 'click', function() {
+				$( '.emoji-group-tab' ).on( 'click', function() {
 					emojiPicker.showEmojiTab( $( this ).data( 'key' ) );
 				} );
 			} );
