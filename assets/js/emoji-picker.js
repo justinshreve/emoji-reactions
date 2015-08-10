@@ -10,14 +10,14 @@ emojiPicker = {
 	},
 
 	/**
-	 * jQuery( document ).on( 'emojiPicker.click', function( event, emoji ) {
+	 * jQuery( document ).on( 'emojiPicker.select', function( event, emoji ) {
 	 *     console.log( emoji ); // the key
      * } );
 	 */
 	attachClick: function() {
 		$( '.emoji-select' ).on( 'click', function() {
 			var name = $(this).data( 'name' );
-			jQuery( document ).trigger( 'emojiPicker.click', [ name ] );
+			jQuery( document ).trigger( 'emojiPicker.select', [ name ] );
 		} );
 	},
 
