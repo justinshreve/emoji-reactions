@@ -9,6 +9,18 @@ emojiPicker = {
 		emojiPicker.windowOpener();
 	},
 
+	/**
+	 * jQuery( document ).on( 'emojiPicker.click', function( event, emoji ) {
+	 *     console.log( emoji ); // the key
+     * } );
+	 */
+	attachClick: function() {
+		$( '.emoji-select' ).on( 'click', function() {
+			var name = $(this).data( 'name' );
+			jQuery( document ).trigger( 'emojiPicker.click', [ name ] );
+		} );
+	},
+
 	windowOpener: function() {
 		$( document ).click( function() {
 			$( '#emoji-reactions-popup-window' ).hide();
@@ -63,6 +75,8 @@ emojiPicker = {
 			}
 			$list.append( '<a class="emoji-select" data-name="' + emojiData.short_name + '">' + twemoji.parse( emojiPicker.toUnicode( emojiData.unified ) ) + '</a>' );
 		} );
+
+		emojiPicker.attachClick();
 	},
 
 	showCustomEmojiTab: function() {
@@ -75,6 +89,8 @@ emojiPicker = {
 		$.each( emojiPickerData.custom, function( short_name, image_url ) {
 			$list.append( '<a class="emoji-select" data-name="custom_' + short_name + '"><img src="' + image_url + '" title="' + short_name + '" class="emoji" /></a>' );
 		} );
+
+		emojiPicker.attachClick();
 	},
 
 	processEmoji: function( raw ) {
