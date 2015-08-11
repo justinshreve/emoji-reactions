@@ -1,11 +1,27 @@
-.emoji-reactions-reaction-area .emoji-reactions-add-button {
+.emoji-reactions-reaction-area .emoji-reactions-button {
 	cursor: pointer;
 	opacity: .5;
+	display: inline-block;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	background: #fff;
+	border: 1px solid #ddd;
+	margin-right: 4px;
+	border-radius: 5px;
+	padding: 1px 10px 1px 10px;
 }
 
-.emoji-reactions-reaction-area .emoji-reactions-add-button:hover {
+.emoji-reactions-reaction-area .emoji-reactions-button:hover,  .emoji-reactions-reaction-area .emoji-reactions-button-i-reacted, .emoji-reactions-reaction-area .emoji-reactions-button-active {
 	opacity: 1;
+	border-color: rgba(79, 156, 252, 0.83);
 }
+
+.emoji-reactions-reaction-area .emoji-reactions-button span {
+	position: relative;
+    top: -2px;
+    left: 2px;
+}
+
 
 #emoji-reactions-popup-window {
 	z-index: 100;

@@ -5,25 +5,29 @@ emojiPicker = {
 	emoji: {},
 	emojiCategories: {},
 
+	post_id: 0,
+
 	init: function() {
 		emojiPicker.windowOpener();
 	},
 
 	/**
-	 * jQuery( document ).on( 'emojiPicker.select', function( event, emoji ) {
+	 * jQuery( document ).on( 'emojiPicker.select', function( event, emoji, post_id ) {
 	 *     console.log( emoji ); // the key
+	 *     console.log( post_id );
      * } );
 	 */
 	attachClick: function() {
 		$( '.emoji-select' ).on( 'click', function() {
 			var name = $(this).data( 'name' );
-			jQuery( document ).trigger( 'emojiPicker.select', [ name ] );
+			jQuery( document ).trigger( 'emojiPicker.select', [ name, emojiPicker.post_id ] );
 		} );
 	},
 
 	windowOpener: function() {
 		$( document ).click( function() {
 			$( '#emoji-reactions-popup-window' ).hide();
+			$( '.emoji-reactions-button-active').removeClass( 'emoji-reactions-button-active' );
 		} );
 
 		$( '#emoji-reactions-popup-window' ).on( 'click', function( event ) {
@@ -36,8 +40,13 @@ emojiPicker = {
 
 			event.stopPropagation();
 
+			emojiPicker.post_id = $( this ).data( 'id' );
+
+			$( '.emoji-reactions-button-active').removeClass( 'emoji-reactions-button-active' );
+			$(this).addClass( 'emoji-reactions-button-active' );
+
 			$popup.hide();
-			$popup.css( 'top', ( $(this).position().top - 400 ) + 'px' );
+			$popup.css( 'top', ( $(this).position().top - 405 ) + 'px' );
 			$popup.css( 'left', ( $(this).position().left - 15 ) + 'px' );
 			$popup.show();
 
