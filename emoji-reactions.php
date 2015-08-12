@@ -21,4 +21,5 @@ if ( is_admin() ) {
 } else {
 	require_once( 'includes/reaction-area.php' );
 	require_once( 'includes/emoji-picker.php' );
+	require_once( 'includes/do-reaction.php' );
 }
