@@ -21,6 +21,9 @@ emojiPicker = {
 		$( '.emoji-select' ).on( 'click', function() {
 			var name = $(this).data( 'name' );
 			jQuery( document ).trigger( 'emojiPicker.select', [ name, emojiPicker.post_id ] );
+
+			$( '#emoji-reactions-popup-window' ).hide();
+			$( '.emoji-reactions-button-active').removeClass( 'emoji-reactions-button-active' );
 		} );
 	},
 

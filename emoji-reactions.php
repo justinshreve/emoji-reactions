@@ -15,11 +15,12 @@
 require_once( 'includes/register-custom-emoji-cpt.php' );
 require_once( 'includes/custom-emoji.php' );
 
+require_once( 'includes/do-reaction.php' );
+
 // Only load the admin files if we are in wp-admin
 if ( is_admin() ) {
 	require_once( 'includes/admin/custom-emoji.php' );
 } else {
 	require_once( 'includes/reaction-area.php' );
 	require_once( 'includes/emoji-picker.php' );
-	require_once( 'includes/do-reaction.php' );
 }

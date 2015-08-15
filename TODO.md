@@ -1,9 +1,10 @@
 
 ## v1:
 
-* Replace + with an actual nice button/widget
-* Add a 'onclick' handler to the control, which fires off an ajax request to log the reaction
+* Check if user is logged out and if we allow logged out reactions... (add setting for this)
+* Return correct json for errors? -1?
 * Store reaction as a custom comment type
+* Hide these custom comment types from the normal wp-admin commenting listing
 * Cap reactions at 10 reactions per person per post
 * Show an error message/alert if over 10 reactions
 * List all reactions in the reactions area
