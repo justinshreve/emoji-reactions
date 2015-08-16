@@ -35,6 +35,7 @@ class Emoji_Reactions_Discussion_Settings_Admin {
 	 */
 	public function register_settings() {
 		register_setting( 'discussion', 'emoji_reactions_allow_guest_reactions', array( $this, 'validate_checkbox' ) );
+		register_setting( 'discussion', 'emoji_reactions_num_per_user_per_post', array( $this, 'validate_number' ) );
 	}
 
 	/**
@@ -63,6 +64,14 @@ class Emoji_Reactions_Discussion_Settings_Admin {
 			'discussion',
 			'emoji_reactions_setting_section'
 		);
+
+ 	 	add_settings_field(
+ 			'emoji_reactions_num_per_user_per_post',
+ 			esc_html__( '# of Reactions Per User Per Post', 'emoji-reactions' ),
+ 			array( $this, 'num_per_user_per_post_setting' ),
+ 			'discussion',
+ 			'emoji_reactions_setting_section'
+ 		);
 	}
 
 	/**
@@ -73,8 +82,26 @@ class Emoji_Reactions_Discussion_Settings_Admin {
 		esc_html_e( 'Enable to allow logged out users to leave reactions.', 'emoji-reactions' );
 	}
 
+	/**
+	 * Displays an input field for the "number of reactions per user per post" setting
+	 */
+	public function num_per_user_per_post_setting() {
+		$this->show_number_input( 'emoji_reactions_num_per_user_per_post' );
+		esc_html_e( 'Limits the number of reactions allowed per user per post. For logged in users, this is based on user ID. For guests this is based on IP address. Set to 0 to allow unlimited reactions.', 'emoji-reactions' );
+	}
+
+	/**
+	 * Displays a checkbox
+	 */
 	public function show_checkbox( $name ) {
 		echo '<input name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '" type="checkbox" value="on" ' . checked( 'on', get_option( $name ), false ) . ' />';
+	}
+
+	/**
+	 * Shows a number input field
+	 */
+	public function show_number_input( $name ) {
+		echo '<input name="' . esc_attr( $name ) . '" id="' . esc_attr( $name ) . '" type="number" style="width:50px;" value="' . intval( get_option( $name, 10 ) ) . '" min="0" step="1">';
 	}
 
 	/**
@@ -86,6 +113,13 @@ class Emoji_Reactions_Discussion_Settings_Admin {
 			return 'off';
 		}
 		return 'on';
+	}
+
+	/**
+	 * Validates a number field
+	 */
+	function validate_number( $input ) {
+		return intval( absint( $input ) );
 	}
 
 }

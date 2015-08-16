@@ -109,6 +109,20 @@ class Emoji_Reactions_Utils {
 			return false;
 		}
 
+		if ( is_user_logged_in() ) {
+			$check_count_against = array( 'user_id' => get_current_user_id() );
+		} else {
+			$check_count_against = array( 'search' => preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR'] ) );
+		}
+		$allowed_reactions_per_user = get_option( 'emoji_reactions_num_per_user_per_post', 10 );
+		if ( $allowed_reactions_per_user > 0 ) {
+			$check_count_against = array( 'type' => 'emoji-reaction', 'count' => true ) + $check_count_against;
+			$current_user_reaction_count = get_comments( $check_count_against );
+			if ( $current_user_reaction_count >= $allowed_reactions_per_user ) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 
