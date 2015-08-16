@@ -1,3 +1,5 @@
+var emojiReactionsMap = {};
+
 jQuery( document ).ready( function( $ ) {
 
 emojiPicker = {
@@ -53,7 +55,7 @@ emojiPicker = {
 			$popup.css( 'left', ( $(this).position().left - 15 ) + 'px' );
 			$popup.show();
 
-			loadEmoji.done( function() {
+			emojiReactionsLoadEmoji.done( function() {
 				$menuHeader.html( '' );
 				$.each( emojiPicker.emojiCategories, function( key, data ) {
 					$menuHeader.append( '<a class="emoji-group-tab emoji-group-tab-' + key + '" data-key="' + key + '" data-label="' + data.label + '" title="' + data.label + '">' + data.html + '</a>' );
@@ -110,6 +112,7 @@ emojiPicker = {
 
 		// Separate by category
 		$.each( raw, function( key, data ) {
+			emojiReactionsMap[ data.short_name ] = emojiPicker.toUnicode( data.unified );
 			if ( null !== data.category ) {
 				if ( 'undefined' === typeof byCategoryUnsorted[ data.category.toLowerCase() ] ) {
 					byCategoryUnsorted[ data.category.toLowerCase() ] = [];
@@ -172,7 +175,7 @@ emojiPicker = {
 			'html': twemoji.parse( '&#x270F;' )
 		};
 
-		loadEmoji.resolve();
+		emojiReactionsLoadEmoji.resolve();
 	},
 
 	// Utility functions
@@ -197,8 +200,8 @@ emojiPicker = {
 };
 
 emojiRaw = $.getJSON( emojiPickerData.pluginURL + '/emoji.json' );
-loadEmoji = $.Deferred();
-loadEmoji.promise();
+emojiReactionsLoadEmoji = $.Deferred();
+emojiReactionsLoadEmoji.promise();
 emojiRaw.done( emojiPicker.processEmoji );
 emojiPicker.init();
 

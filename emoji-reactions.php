@@ -15,7 +15,6 @@
 require_once( 'includes/register-custom-emoji-cpt.php' );
 require_once( 'includes/utils.php' );
 require_once( 'includes/prevent-reactions-in-comments.php' );
-require_once( 'includes/do-reaction.php' );
 
 // Only load the admin files if we are in wp-admin
 if ( is_admin() ) {
@@ -25,3 +24,8 @@ if ( is_admin() ) {
 	require_once( 'includes/reaction-area.php' );
 	require_once( 'includes/emoji-picker.php' );
 }
+
+// These are done on the front end, but have ajax hooks, so they need to be
+// outside of the is_admin checks since ajax runs in admin-ajax.php
+require_once( 'includes/do-reaction.php' );
+require_once( 'includes/display-reactions.php' );
