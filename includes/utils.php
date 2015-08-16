@@ -37,7 +37,7 @@ class Emoji_Reactions_Utils {
 	 * @return boolean
 	 */
 	public static function is_valid_emoji( $emoji ) {
-		if ( substr( $emoji, 0, 7 ) === "custom_" ) {
+		if ( "custom_" === substr( $emoji, 0, 7 ) ) {
 			$emoji = substr( $emoji, 7 );
 		}
 		$custom_emoji = Emoji_Reactions_Utils::get_custom_emoji();
