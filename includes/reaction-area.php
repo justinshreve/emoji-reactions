@@ -59,7 +59,7 @@ class Emoji_Reactions_Reaction_Area {
 	 * @return string Filtered content
 	 */
 	public function display( $content = '' ) {
-		if ( 'off' === get_option( 'emoji_reactions_allow_guest_reactions', 'off' ) && ! is_user_logged_in() ) {
+		if ( ! Emoji_Reactions_Utils::can_react_to_post( get_the_ID() ) ) {
 			return $content;
 		}
 

@@ -58,7 +58,7 @@ class Emoji_Reactions_Do_Reaction {
 		$post_ID = $_REQUEST['post_ID'];
 		$emoji   = $_REQUEST['emoji'];
 
-		if ( ! $this->can_current_user_react_to_post( $post_ID ) ) {
+		if ( ! Emoji_Reactions_Utils::can_react_to_post( $post_ID ) ) {
 			wp_send_json_error( esc_html__( 'Post is not available.', 'emoji-reactions' ) );
 			die( -1 );
 		}
@@ -92,56 +92,6 @@ class Emoji_Reactions_Do_Reaction {
 		error_log( print_r ( $id, 1 ) );
 
 		die;
-	}
-
-	private function can_current_user_react_to_post( $post_ID ) {
-
-		$post = get_post( $post_ID );
-		if ( ! $post || is_wp_error( $post ) ) {
-			return false;
-		}
-
-		if ( 'inherit' === $post->post_status ) {
-			$parent_post = get_post( $post->post_parent );
-			$post_password = $parent_post->post_password;
-			$post_status_obj = get_post_status_object( $parent_post->post_status );
-		} else {
-			$post_status_obj = get_post_status_object( $post->post_status );
-			$post_password = $post->post_password;
-		}
-
-		if ( ! $post_status_obj->public ) {
-			if ( is_user_logged_in() ) {
-				if ( $post_status_obj->protected ) {
-					if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-						return false;
-					}
-				} elseif ( $post_status_obj->private ) {
-					if ( ! current_user_can( 'read_post', $post->ID ) ) {
-						return false;
-					}
-				} elseif ( 'trash' === $post->post_status ) {
-					if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-						return false;
-					}
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
-		}
-
-		if ( strlen( $post_password ) && ! current_user_can( 'read_post', $post->ID ) ) {
-			return false;
-		}
-
-		if ( 'off' === get_option( 'emoji_reactions_allow_guest_reactions', 'off' ) && ! is_user_logged_in() ) {
-			return false;
-		}
-
-		return true;
-
 	}
 
 }

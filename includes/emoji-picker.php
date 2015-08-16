@@ -63,7 +63,7 @@ class Emoji_Reactions_Emoji_Picker {
 		// data for displaying the reactions area
 		wp_localize_script( 'emoji-reactions-emoji-picker-js', 'emojiPickerData', array(
 			'pluginURL' => plugins_url( '' , dirname( __FILE__ ) ),
-			'custom'    => Emoji_Reactions_Custom_Emoji::instance()->get()
+			'custom'    => Emoji_Reactions_Utils::get_custom_emoji()
 		) );
 
 		// i18n strings
