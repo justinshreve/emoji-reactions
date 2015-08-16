@@ -31,6 +31,32 @@ class Emoji_Reactions_Utils {
 	}
 
 	/**
+	 * Returns true if the provided $emoji shorthand is a valid emoji or false if not
+	 * Checks against both custom emoji and standard emoji
+	 * @param  string  $emoji
+	 * @return boolean
+	 */
+	public static function is_valid_emoji( $emoji ) {
+		$custom_emoji = Emoji_Reactions_Utils::get_custom_emoji();
+		if ( array_key_exists( $emoji, $custom_emoji ) ) {
+			return true;
+		}
+
+		$emoji_raw_json = file_get_contents( __DIR__ . '/../emoji.json' );
+		$emoji_json = json_decode( $emoji_raw_json );
+		$is_valid_emoji = false;
+
+		foreach ( $emoji_json as $single_emoji_object ) {
+			if ( $emoji === $single_emoji_object->short_name ) {
+				$is_valid_emoji = true;
+				break;
+			}
+		}
+
+		return $is_valid_emoji;
+	}
+
+	/**
 	 * Returns true if a post can be "reacted" upon, false if not
 	 */
 	public static function can_react_to_post( $post_ID ) {

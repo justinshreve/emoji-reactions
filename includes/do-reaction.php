@@ -52,7 +52,6 @@ class Emoji_Reactions_Do_Reaction {
 	public function do_reaction() {
 		if ( empty( $_REQUEST['post_ID'] ) || empty( $_REQUEST['emoji'] ) ) {
 			wp_send_json_error( esc_html__( 'The required post ID and emoji fields were not provided.', 'emoji-reactions' ) );
-			die( -1 );
 		}
 
 		$post_ID = $_REQUEST['post_ID'];
@@ -60,25 +59,10 @@ class Emoji_Reactions_Do_Reaction {
 
 		if ( ! Emoji_Reactions_Utils::can_react_to_post( $post_ID ) ) {
 			wp_send_json_error( esc_html__( 'Post is not available.', 'emoji-reactions' ) );
-			die( -1 );
 		}
 
-		$post = get_post( $post_ID );
-
-		$emoji_raw_json = file_get_contents( __DIR__ . '/../emoji.json' );
-		$emoji_json = json_decode( $emoji_raw_json );
-		$is_valid_emoji = false;
-
-		foreach ( $emoji_json as $single_emoji_object ) {
-			if ( $emoji === $single_emoji_object->short_name ) {
-				$is_valid_emoji = true;
-				break;
-			}
-		}
-
-		if ( false === $is_valid_emoji ) {
+		if ( ! Emoji_Reactions_Utils::is_valid_emoji( $emoji ) ) {
 			wp_send_json_error( esc_html__( 'Provided emoji not recognized.', 'emoji-reactions' ) );
-			die( -1 );
 		}
 
 		$data = array(
