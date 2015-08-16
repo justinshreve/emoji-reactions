@@ -14,6 +14,7 @@
 // Register the custom eomji custom post type
 require_once( 'includes/register-custom-emoji-cpt.php' );
 require_once( 'includes/utils.php' );
+require_once( 'includes/prevent-reactions-in-comments.php' );
 require_once( 'includes/do-reaction.php' );
 
 // Only load the admin files if we are in wp-admin
