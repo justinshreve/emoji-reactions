@@ -65,16 +65,39 @@ class Emoji_Reactions_Do_Reaction {
 			wp_send_json_error( esc_html__( 'Provided emoji not recognized.', 'emoji-reactions' ) );
 		}
 
+		$ip_address = preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR'] );
+		$user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? substr( $_SERVER['HTTP_USER_AGENT'], 0, 254 ) : '';
+
 		$data = array(
-		    'comment_post_ID' => $post_ID,
-		    'comment_content' => $emoji,
-		    'comment_type' => 'emoji-reaction',
+			'comment_post_ID'   => $post_ID,
+			'comment_content'   => $emoji,
+			'comment_type'      => 'emoji-reaction',
+			'comment_approved'  => 1,
+			'comment_author_IP' => $ip_address,
+			'comment_agent'     => $user_agent,
 		);
+
+		if ( is_user_logged_in() ) {
+			$current_user = wp_get_current_user();
+			if ( $current_user->user_login !== $current_user->display_name ) {
+				$user_name = $current_user->display_name;
+			} else {
+				$user_name = $current_user->user_login;
+			}
+			$data['user_id'] = get_current_user_id();
+			$data['comment_author'] = $user_name;
+			$data['comment_author_email'] = $current_user->user_email;
+		} else {
+			$data['comment_author'] = esc_html__( 'Guest', 'emoji-reactions' );
+		}
+
 		$id = wp_insert_comment( $data );
 
-		error_log( print_r ( $data, 1 ) );
-		error_log( print_r ( $id, 1 ) );
+		if ( ! $id ) {
+			wp_send_json_error( esc_html__( 'Reaction failed to post.', 'emoji-reactions' ) );
+		}
 
+		wp_send_json( array( 'success' => true, 'reaction_ID' => $id ) );
 		die;
 	}
 
