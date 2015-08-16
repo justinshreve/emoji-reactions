@@ -20,6 +20,7 @@ require_once( 'includes/do-reaction.php' );
 // Only load the admin files if we are in wp-admin
 if ( is_admin() ) {
 	require_once( 'includes/admin/custom-emoji.php' );
+	require_once( 'includes/admin/discussion-settings.php' );
 } else {
 	require_once( 'includes/reaction-area.php' );
 	require_once( 'includes/emoji-picker.php' );

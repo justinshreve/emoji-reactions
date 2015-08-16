@@ -103,9 +103,11 @@ class Emoji_Reactions_Do_Reaction {
 
 		if ( 'inherit' === $post->post_status ) {
 			$parent_post = get_post( $post->post_parent );
+			$post_password = $parent_post->post_password;
 			$post_status_obj = get_post_status_object( $parent_post->post_status );
 		} else {
 			$post_status_obj = get_post_status_object( $post->post_status );
+			$post_password = $post->post_password;
 		}
 
 		if ( ! $post_status_obj->public ) {
@@ -130,7 +132,11 @@ class Emoji_Reactions_Do_Reaction {
 			}
 		}
 
-		if ( strlen( $post->post_password ) && ! current_user_can( 'edit_post', $post->ID ) ) {
+		if ( strlen( $post_password ) && ! current_user_can( 'read_post', $post->ID ) ) {
+			return false;
+		}
+
+		if ( 'off' === get_option( 'emoji_reactions_allow_guest_reactions', 'off' ) && ! is_user_logged_in() ) {
 			return false;
 		}
 

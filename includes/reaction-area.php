@@ -59,6 +59,10 @@ class Emoji_Reactions_Reaction_Area {
 	 * @return string Filtered content
 	 */
 	public function display( $content = '' ) {
+		if ( 'off' === get_option( 'emoji_reactions_allow_guest_reactions', 'off' ) && ! is_user_logged_in() ) {
+			return $content;
+		}
+
 		$filtered_content = apply_filters( 'emoji_reactions_reaction_area', $content );
 		$empty_flair = $this->before_display( '' ) . $this->after_display( '' );
 
